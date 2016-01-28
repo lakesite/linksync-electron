@@ -3,9 +3,43 @@
   <head>
     <meta charset="UTF-8">
     <title>Links</title>
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.10/css/jquery.dataTables.css">
+    <script>window.$ = window.jQuery = require('jquery');</script>
   </head>
   <body>
     <h1>Link Manager</h1>
-    <p>CRUD via searchable grid list.</p>
+    <table id="links" class="display" cellspacing="0" width="100%">
+      <thead>
+        <tr>
+          <th>URL</th>
+          <th>Description</th>
+          <th>ID</th>
+        </tr>
+      </thead>
+      <tfoot>
+        <tr>
+          <th>URL</th>
+          <th>Description</th>
+          <th>ID</th>
+        </tr>
+      </tfoot>
+    </table>
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.10/js/jquery.dataTables.min.js"></script>
+    <script type="text/javascript" charset="utf8">
+      $(document).ready(function() {
+        $('#links').DataTable({
+          "ajax": {
+            "url": "http://localhost:5979/api/links",
+            "dataSrc": "",
+            "type": "GET"
+          },
+          "columns": [
+            { data: "url" },
+            { data: "description" },
+            { data: "id" }
+          ]
+        });
+      });
+    </script>
   </body>
 </html>

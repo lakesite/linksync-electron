@@ -51,6 +51,7 @@ app.on('window-all-closed', function() {
 app.on('ready', function() {
   mainWindow = new BrowserWindow({width: 800, height: 600});
   about();
+  // mainWindow.webContents.openDevTools();
 
   appIcon = new Tray(__dirname + '/app/icon.png');
   var contextMenu = Menu.buildFromTemplate([

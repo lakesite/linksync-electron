@@ -1,0 +1,13 @@
+{
+  "name": "linksync-electron",
+  "productName": "LinkSync Electron",
+  "identifier": "net.lakesite.linksync-electron",
+  "description": "A multi-platform bookmark, note and media system",
+  "version": "0.0.1",
+  "author": "Andrew Duncan",
+  "copyright": "Copyright 2016 Andrew Duncan",
+  "main": "app.js",
+  "dependencies": {
+    "electron-prebuilt": "^0.36.0"
+  }
+}

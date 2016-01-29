@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Links</title>
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.10/css/jquery.dataTables.css">
+    <script>window.$ = window.jQuery = require('jquery');</script>
+  </head>
+  <body>
+    <h1>Settings</h1>
+    <table id="settings" class="display" cellspacing="0" width="100%">
+      <thead>
+        <tr>
+          <th>Key</th>
+          <th>Value</th>
+        </tr>
+      </thead>
+      <tfoot>
+        <tr>
+          <th>Key</th>
+          <th>Value</th>
+        </tr>
+      </tfoot>
+    </table>
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.10/js/jquery.dataTables.min.js"></script>
+    <script type="text/javascript" charset="utf8">
+      $(document).ready(function() {
+        $('#links').DataTable({
+          "ajax": {
+            "url": "http://localhost:5979/api/settings",
+            "dataSrc": "",
+            "type": "GET"
+          },
+          "columns": [
+            { data: "key" },
+            { data: "value" },
+            { data: "id" }
+          ]
+        });
+      });
+    </script>
+  </body>
+</html>

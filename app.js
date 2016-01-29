@@ -17,27 +17,66 @@
 
 'use strict';
 
-const electron = require('electron');
-const app = electron.app;  // Module to control application life.
-const BrowserWindow = electron.BrowserWindow;  // Module to create native browser window.
-const Menu = electron.Menu;
-const Tray = electron.Tray;
+const
+  electron = require('electron'),
+  lse_menu = require(__dirname + '/app/lib/menu'),
+  lse_tray = require(__dirname + '/app/lib/tray');
 
-var appIcon = null;
+const app = electron.app;
+const BrowserWindow = electron.BrowserWindow;
 
-// Keep a global reference of the window object, if you don't, the window will
-// be closed automatically when the JavaScript object is garbage collected.
-var mainWindow = null;
+// linksync-electron app.
+var lse = {
+  icon: __dirname + '/app/icon.png',
+
+  quit: function () {
+    app.quit();
+  },
+
+  window_reload: function () {
+    lse.main_window.webContents.reload();
+  },
+
+  window_about: function() {
+    lse.main_window.loadURL('file://' + __dirname + '/app/static/index.html');
+  },
+
+  window_settings: function() {
+    lse.main_window.loadURL('file://' + __dirname + '/app/static/settings/index.html');
+  },
+
+  window_manage_links: function() {
+    lse.main_window.loadURL('file://' + __dirname + '/app/static/links/index.html');
+  },
+
+  toggle_dev_tools: function() {
+    lse.main_window.webContents.openDevTools();
+  },
+
+  // configuration (load from file/db later.)
+  window_options: {
+    width: 800,
+    height: 600
+  },
+};
 
 
-function about() {
-  mainWindow.loadURL('file://' + __dirname + '/app/static/index.html');
+function start_lse() {
+  lse.main_window = new BrowserWindow(lse.window_options);
+
+  lse_tray.init(lse);
+  lse_menu.init(lse);
+
+  lse.window_manage_links();
+
+  lse.main_window.on('closed', function() {
+    // Dereference the window object, usually you would store windows
+    // in an array if your app supports multi windows, this is the time
+    // when you should delete the corresponding element.
+    lse.main_window = null;
+  });
 }
 
-
-function manage_links() {
-  mainWindow.loadURL('file://' + __dirname + '/app/static/links/index.html');
-}
 
 app.on('window-all-closed', function() {
   // On OS X it is common for applications and their menu bar
@@ -49,23 +88,5 @@ app.on('window-all-closed', function() {
 
 
 app.on('ready', function() {
-  mainWindow = new BrowserWindow({width: 800, height: 600});
-  about();
-  // mainWindow.webContents.openDevTools();
-
-  appIcon = new Tray(__dirname + '/app/icon.png');
-  var contextMenu = Menu.buildFromTemplate([
-    { label: 'Manage Links', type: 'radio', click: manage_links },
-    { label: 'About', type: 'radio', checked: true, click: about },
-    { label: 'Quit', type: 'radio', click: function() { app.quit(); } }
-  ]);
-  appIcon.setToolTip('LinkSync');
-  appIcon.setContextMenu(contextMenu);
-
-  mainWindow.on('closed', function() {
-    // Dereference the window object, usually you would store windows
-    // in an array if your app supports multi windows, this is the time
-    // when you should delete the corresponding element.
-    mainWindow = null;
-  });
+  start_lse();
 });

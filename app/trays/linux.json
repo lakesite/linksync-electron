@@ -1,0 +1,22 @@
+{
+  "tray": [
+    {
+      "label": "Manage Links",
+      "type": "radio",
+      "checked": true,
+      "command": "application:manage-links"
+    }, {
+      "label": "Settings",
+      "type": "radio",
+      "command": "application:settings"
+    }, {
+      "label": "About",
+      "type": "radio",
+      "command": "application:about"
+    }, {
+      "label": "Quit",
+      "type": "radio",
+      "command": "application:quit"
+    }
+  ]
+}

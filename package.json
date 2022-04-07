@@ -10,7 +10,7 @@
   "main": "app.js",
   "dependencies": {
     "electron-prebuilt": "^0.36.0",
-    "request": "~2.69.0",
+    "request": "~2.75.0",
     "jquery": "~2.2.0",
     "bootstrap": "~3.3.6"
   }
